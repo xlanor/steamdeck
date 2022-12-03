@@ -1,0 +1,8 @@
+- hosts: all
+  user: deck
+  roles:
+    - common
+  vars_prompt:
+    - name: password
+      prompt: sudo password
+      private: true

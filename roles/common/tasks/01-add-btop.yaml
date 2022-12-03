@@ -1,0 +1,25 @@
+- name: Create a directory if it does not exist
+  file:
+    path: /home/deck/Downloads/btop
+    state: directory
+    mode: '0755'
+
+- name: Unarchive btop that needs to be downloaded 
+  ansible.builtin.unarchive:
+    src: https://github.com/aristocratos/btop/releases/latest/download/btop-x86_64-linux-musl.tbz
+    dest: /home/deck/Downloads/btop
+    remote_src: yes
+
+- name: Copy btop to /home/deck/bin
+  ansible.builtin.copy:
+    src: /home/deck/Downloads/btop
+    dest: /home/deck/bin
+    owner: deck
+    group: deck
+    mode: '0777'
+    remote_src: true
+
+- name: Recursively remove directory
+  ansible.builtin.file:
+    path: /home/deck/Downloads/btop
+    state: absent
